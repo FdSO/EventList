@@ -83,3 +83,35 @@ extension CLLocation {
         }
     }
 }
+
+extension UIScrollView {
+    
+    func takeScreenshot(correctionValue: CGFloat) -> UIImage? {
+        
+        let originalContentOffset = contentOffset
+        let originalFrame = frame
+        
+        var customContentSize = contentSize
+        customContentSize.height -= correctionValue
+        
+        UIGraphicsBeginImageContext(customContentSize)
+        
+        contentOffset = .zero
+        
+        frame = .init(origin: .zero, size: customContentSize)
+        
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return nil
+        }
+        
+        layer.render(in: context)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        contentOffset = originalContentOffset
+        frame = originalFrame
+        
+        return image
+    }
+}

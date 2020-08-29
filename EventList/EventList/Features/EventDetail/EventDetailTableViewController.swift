@@ -51,10 +51,44 @@ final class EventDetailTableViewController: UITableViewController {
             if let people = result {
                 self.viewModel?.postChekin(parameter: people) { (isSuccess) in
                     
-                    self.presentAlert(title: nil, message: isSuccess ? "Check-in com Sucesso!" : "No foi possivel faze o Check-in", preferredStyle: .alert, completion: nil)
+                    self.presentAlert(title: nil, message: isSuccess ? "Check-in com Sucesso!" : "Não foi possível fazer o Check-in", preferredStyle: .alert, completion: nil)
                 }
             }
         }
+    }
+    
+    // compartilha ou salva imagem da tela, adiciona também logo e endereço para facilitar visualização
+    @IBAction private func shareWasTapped(_ sender: Any) {
+        
+        let addressLabel = UILabel(frame: .init(origin: .init(x: 30, y: 10), size: .init(width: UIScreen.main.bounds.width - 60, height: 20)))
+        
+        addressLabel.textAlignment = .center
+        addressLabel.textColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
+        addressLabel.adjustsFontSizeToFitWidth = true
+        
+        addressLabel.text = viewModel?.model.date?.asString(timeStyle: .short, dateStyle: .full, locale: AppProperties.locale)
+        
+        tableView.cellForRow(at: .init(row: 0, section: 0))?.accessoryType = .none
+        
+        let imageView = UIImageView(frame: .init(origin: .init(x: (UIScreen.main.bounds.width - 35) / 2, y: 110), size: .init(width: 35, height: 35)))
+        
+        imageView.image = image
+        
+        tableView.tableHeaderView?.addSubview(addressLabel)
+        
+        tableView.tableHeaderView?.addSubview(imageView)
+        
+        if let image = tableView.takeScreenshot(correctionValue: tableView.tableFooterView?.frame.height ?? 0) {
+            let controller: UIActivityViewController = .init(activityItems: [image], applicationActivities: nil)
+            
+            present(controller, animated: true)
+        }
+        
+        tableView.cellForRow(at: .init(row: 0, section: 0))?.accessoryType = .detailButton
+        
+        addressLabel.removeFromSuperview()
+        
+        imageView.removeFromSuperview()
     }
     
     var image: UIImage?
@@ -234,6 +268,27 @@ extension EventDetailTableViewController {
         titleView.image = image?.af.imageRoundedIntoCircle()
         
         navigationItem.titleView = titleView
+        
+        if let tableViewFooter = tableView.tableFooterView {
+            addParallaxToView(view: tableViewFooter)
+        }
+    }
+    
+    // efeito parallax
+    private func addParallaxToView(view: UIView) {
+        let amount = 30
+
+        let horizontal = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
+        horizontal.minimumRelativeValue = -amount
+        horizontal.maximumRelativeValue = amount
+
+        let vertical = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
+        vertical.minimumRelativeValue = -amount
+        vertical.maximumRelativeValue = amount
+
+        let group = UIMotionEffectGroup()
+        group.motionEffects = [horizontal, vertical]
+        view.addMotionEffect(group)
     }
     
     // validação de campos interno de um alertController - habilita ou não o botão de confirmar

@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Event Detail Table View Controller-->
+        <!--Title-->
         <scene sceneID="vhQ-jf-CLi">
             <objects>
                 <tableViewController id="ZBH-75-gGt" customClass="EventDetailTableViewController" customModule="EventList" customModuleProvider="target" sceneMemberID="viewController">
@@ -140,6 +140,13 @@
                             <outlet property="delegate" destination="ZBH-75-gGt" id="g8d-k6-Gs4"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="ir5-ga-OBo">
+                        <barButtonItem key="rightBarButtonItem" image="icons8-share" id="hBN-Si-d2y">
+                            <connections>
+                                <action selector="shareWasTapped:" destination="ZBH-75-gGt" id="t9s-KM-BfE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <size key="freeformSize" width="320" height="850"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="GwY-hh-Mrr">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -164,4 +171,7 @@
             <point key="canvasLocation" x="24" y="108"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icons8-share" width="33.333332061767578" height="33.333332061767578"/>
+    </resources>
 </document>
