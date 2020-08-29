@@ -7,3 +7,16 @@
 //
 
 import Foundation
+
+extension Decimal {
+    
+    func asCurrency(locale: Locale = .current) -> String? {
+        
+        let numberFormatter = NumberFormatter()
+        
+        numberFormatter.locale = locale
+        numberFormatter.numberStyle = .currency
+        
+        return numberFormatter.string(from: self as NSNumber)
+    }
+}

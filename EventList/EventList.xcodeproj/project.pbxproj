@@ -22,6 +22,10 @@
 		A01CE32E24FA7C5400318F9D /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = A01CE32D24FA7C5400318F9D /* AlamofireImage */; };
 		A01CE33024FA7E5800318F9D /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CE32F24FA7E5800318F9D /* EventModel.swift */; };
 		A01CE33224FA7F4800318F9D /* InterestedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CE33124FA7F4800318F9D /* InterestedModel.swift */; };
+		A01CE33424FA85BA00318F9D /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CE33324FA85BA00318F9D /* Coordinator.swift */; };
+		A01CE33624FA862700318F9D /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CE33524FA862700318F9D /* AppCoordinator.swift */; };
+		A01CE33824FA883700318F9D /* EventsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CE33724FA883700318F9D /* EventsViewModel.swift */; };
+		A02D2D4A24FA9862002F63C1 /* AppProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D2D4924FA9862002F63C1 /* AppProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +65,10 @@
 		A01CE32624FA74FA00318F9D /* EventDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailTableViewController.swift; sourceTree = "<group>"; };
 		A01CE32F24FA7E5800318F9D /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
 		A01CE33124FA7F4800318F9D /* InterestedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestedModel.swift; sourceTree = "<group>"; };
+		A01CE33324FA85BA00318F9D /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		A01CE33524FA862700318F9D /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		A01CE33724FA883700318F9D /* EventsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewModel.swift; sourceTree = "<group>"; };
+		A02D2D4924FA9862002F63C1 /* AppProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppProperties.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +130,7 @@
 				A01CE2F024FA717600318F9D /* Assets.xcassets */,
 				A01CE2F224FA717600318F9D /* LaunchScreen.storyboard */,
 				A01CE2F524FA717600318F9D /* Info.plist */,
+				A02D2D4924FA9862002F63C1 /* AppProperties.swift */,
 			);
 			path = EventList;
 			sourceTree = "<group>";
@@ -156,6 +165,8 @@
 		A01CE31824FA735000318F9D /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				A01CE33324FA85BA00318F9D /* Coordinator.swift */,
+				A01CE33524FA862700318F9D /* AppCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -172,6 +183,7 @@
 		A01CE31C24FA73BD00318F9D /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				A01CE33724FA883700318F9D /* EventsViewModel.swift */,
 				A01CE32024FA746800318F9D /* Events.storyboard */,
 				A01CE32224FA749F00318F9D /* EventsTableViewController.swift */,
 			);
@@ -328,11 +340,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A02D2D4A24FA9862002F63C1 /* AppProperties.swift in Sources */,
+				A01CE33424FA85BA00318F9D /* Coordinator.swift in Sources */,
 				A01CE32724FA74FA00318F9D /* EventDetailTableViewController.swift in Sources */,
 				A01CE2E824FA717300318F9D /* AppDelegate.swift in Sources */,
 				A01CE33224FA7F4800318F9D /* InterestedModel.swift in Sources */,
 				A01CE2EA24FA717300318F9D /* SceneDelegate.swift in Sources */,
+				A01CE33824FA883700318F9D /* EventsViewModel.swift in Sources */,
 				A01CE32324FA749F00318F9D /* EventsTableViewController.swift in Sources */,
+				A01CE33624FA862700318F9D /* AppCoordinator.swift in Sources */,
 				A01CE33024FA7E5800318F9D /* EventModel.swift in Sources */,
 				A01CE31A24FA738700318F9D /* Extensions.swift in Sources */,
 			);

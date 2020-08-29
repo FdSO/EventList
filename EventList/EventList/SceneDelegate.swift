@@ -12,15 +12,23 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    
+    var coordinator: AppCoordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        guard let windowsScene = scene as? UIWindowScene, let rootViewController = UIStoryboard(name: "Events", bundle: nil).instantiateInitialViewController() else {
+        guard let windowsScene = scene as? UIWindowScene else {
             return
         }
         
+        let navigationController: UINavigationController = .init()
+
+        coordinator = .init(navigationController: navigationController)
+
+        coordinator?.start()
+
         window = .init(windowScene: windowsScene)
-        window?.rootViewController = UINavigationController(rootViewController: rootViewController)
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 

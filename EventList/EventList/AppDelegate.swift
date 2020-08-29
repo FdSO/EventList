@@ -12,15 +12,19 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    var coordinator: AppCoordinator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        guard let rootViewController = UIStoryboard(name: "Events", bundle: nil).instantiateInitialViewController() else {
-            return true
-        }
+        let navigationController: UINavigationController = .init()
+        
+        coordinator = .init(navigationController: navigationController)
+        
+        coordinator?.start()
         
         window = .init(frame: UIScreen.main.bounds)
-        window?.rootViewController = UINavigationController(rootViewController: rootViewController)
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         
         return true
