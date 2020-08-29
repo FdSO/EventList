@@ -59,3 +59,22 @@ extension Date {
         return dateFormatter.string(from: self)
     }
 }
+
+import CoreLocation
+
+extension CLLocation {
+    
+    func getPlaceMark(completion: @escaping (Result<CLPlacemark, NSError>) -> Void) {
+        
+        CLGeocoder().reverseGeocodeLocation(self) { (placeMarks, error) in
+            
+            if let e = error as NSError? {
+                completion(.failure(e))
+            } else if let placeMark = placeMarks?.first {
+                completion(.success(placeMark))
+            } else {
+                completion(.failure(.init(domain: "CLGeocoder", code: .zero, userInfo: [NSLocalizedDescriptionKey: "Unknown error"])))
+            }
+        }
+    }
+}

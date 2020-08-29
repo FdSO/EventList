@@ -8,11 +8,41 @@
 
 import UIKit
 
+import MapKit
+
 // exemplo de controller sem RxSwift
 
 final class EventDetailTableViewController: UITableViewController {
     
+    @IBOutlet private weak var mapView: MKMapView!
+    
     @IBOutlet private weak var titleView: UIImageView!
+    
+    @IBAction private func refreshControllWasTapped() {
+        
+        viewModel?.model.getPlaceMark(completion: { (result: Result<CLPlacemark, NSError>) in
+
+            self.refreshControl?.endRefreshing()
+            
+            switch result {
+                
+            case .success(let obj):
+                
+                self.mapView.removeAnnotations(self.mapView.annotations)
+                
+                let annotation = MKPointAnnotation()
+                annotation.title = (obj.name ?? "") + " - " + (obj.subLocality ?? "")
+                annotation.subtitle = obj.locality
+                annotation.coordinate = obj.location?.coordinate ?? .init()
+                
+                self.mapView.setCenter(obj.location?.coordinate ?? .init(), animated: true)
+                
+                self.mapView.addAnnotation(annotation)
+
+            case .failure(_): break
+            }
+        })
+    }
     
     var image: UIImage?
     
@@ -49,9 +79,7 @@ final class EventDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleView.image = image?.af.imageRoundedIntoCircle()
-        
-        navigationItem.titleView = titleView
+        initState()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -185,6 +213,15 @@ final class EventDetailTableViewController: UITableViewController {
 }
 
 extension EventDetailTableViewController {
+    
+    private func initState() {
+        refreshControl?.beginRefreshing()
+        refreshControl?.sendActions(for: .valueChanged)
+        
+        titleView.image = image?.af.imageRoundedIntoCircle()
+        
+        navigationItem.titleView = titleView
+    }
     
     private func presentActionSheet(title: String?, message: String?, completion: (() -> Void)? = nil) {
         

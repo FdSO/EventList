@@ -36,6 +36,13 @@ struct EventModel: Decodable {
     let title: String?
     let peoples: [PeopleModel]?
     let coupons: [CouponModel]?
+    
+    func getPlaceMark(completion: @escaping (Result<CLPlacemark, NSError>) -> Void) {
+        
+        CLLocation(latitude: latitude, longitude: longitude).getPlaceMark { (result: Result<CLPlacemark, NSError>) in
+            completion(result)
+        }
+    }
 
     private enum CodingKeys: String, CodingKey {
         case id
