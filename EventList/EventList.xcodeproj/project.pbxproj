@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,6 +18,10 @@
 		A01CE32324FA749F00318F9D /* EventsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CE32224FA749F00318F9D /* EventsTableViewController.swift */; };
 		A01CE32524FA74C400318F9D /* EventDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A01CE32424FA74C400318F9D /* EventDetail.storyboard */; };
 		A01CE32724FA74FA00318F9D /* EventDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CE32624FA74FA00318F9D /* EventDetailTableViewController.swift */; };
+		A01CE32B24FA7B9700318F9D /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A01CE32A24FA7B9700318F9D /* RxAlamofire */; };
+		A01CE32E24FA7C5400318F9D /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = A01CE32D24FA7C5400318F9D /* AlamofireImage */; };
+		A01CE33024FA7E5800318F9D /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CE32F24FA7E5800318F9D /* EventModel.swift */; };
+		A01CE33224FA7F4800318F9D /* InterestedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CE33124FA7F4800318F9D /* InterestedModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +59,8 @@
 		A01CE32224FA749F00318F9D /* EventsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTableViewController.swift; sourceTree = "<group>"; };
 		A01CE32424FA74C400318F9D /* EventDetail.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = EventDetail.storyboard; sourceTree = "<group>"; };
 		A01CE32624FA74FA00318F9D /* EventDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailTableViewController.swift; sourceTree = "<group>"; };
+		A01CE32F24FA7E5800318F9D /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
+		A01CE33124FA7F4800318F9D /* InterestedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestedModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +68,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A01CE32B24FA7B9700318F9D /* RxAlamofire in Frameworks */,
+				A01CE32E24FA7C5400318F9D /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +147,8 @@
 		A01CE31724FA734200318F9D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A01CE32F24FA7E5800318F9D /* EventModel.swift */,
+				A01CE33124FA7F4800318F9D /* InterestedModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -193,6 +203,10 @@
 			dependencies = (
 			);
 			name = EventList;
+			packageProductDependencies = (
+				A01CE32A24FA7B9700318F9D /* RxAlamofire */,
+				A01CE32D24FA7C5400318F9D /* AlamofireImage */,
+			);
 			productName = EventList;
 			productReference = A01CE2E424FA717300318F9D /* EventList.app */;
 			productType = "com.apple.product-type.application";
@@ -265,6 +279,11 @@
 				Base,
 			);
 			mainGroup = A01CE2DB24FA717300318F9D;
+			packageReferences = (
+				A01CE32824FA7B5800318F9D /* XCRemoteSwiftPackageReference "RxSwift" */,
+				A01CE32924FA7B9700318F9D /* XCRemoteSwiftPackageReference "RxAlamofire" */,
+				A01CE32C24FA7C5400318F9D /* XCRemoteSwiftPackageReference "AlamofireImage" */,
+			);
 			productRefGroup = A01CE2E524FA717300318F9D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -311,8 +330,10 @@
 			files = (
 				A01CE32724FA74FA00318F9D /* EventDetailTableViewController.swift in Sources */,
 				A01CE2E824FA717300318F9D /* AppDelegate.swift in Sources */,
+				A01CE33224FA7F4800318F9D /* InterestedModel.swift in Sources */,
 				A01CE2EA24FA717300318F9D /* SceneDelegate.swift in Sources */,
 				A01CE32324FA749F00318F9D /* EventsTableViewController.swift in Sources */,
+				A01CE33024FA7E5800318F9D /* EventModel.swift in Sources */,
 				A01CE31A24FA738700318F9D /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -468,7 +489,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -481,7 +503,10 @@
 				DEVELOPMENT_TEAM = QDM8KY5J4B;
 				INFOPLIST_FILE = EventList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = FdSO.EventList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -497,7 +522,10 @@
 				DEVELOPMENT_TEAM = QDM8KY5J4B;
 				INFOPLIST_FILE = EventList/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = FdSO.EventList;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -514,7 +542,11 @@
 				DEVELOPMENT_TEAM = QDM8KY5J4B;
 				INFOPLIST_FILE = EventListTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = FdSO.EventListTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -532,7 +564,11 @@
 				DEVELOPMENT_TEAM = QDM8KY5J4B;
 				INFOPLIST_FILE = EventListTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = FdSO.EventListTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -548,7 +584,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QDM8KY5J4B;
 				INFOPLIST_FILE = EventListUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = FdSO.EventListUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -564,7 +604,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QDM8KY5J4B;
 				INFOPLIST_FILE = EventListUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = FdSO.EventListUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -613,6 +657,46 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A01CE32824FA7B5800318F9D /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
+		A01CE32924FA7B9700318F9D /* XCRemoteSwiftPackageReference "RxAlamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxAlamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.0;
+			};
+		};
+		A01CE32C24FA7C5400318F9D /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A01CE32A24FA7B9700318F9D /* RxAlamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A01CE32924FA7B9700318F9D /* XCRemoteSwiftPackageReference "RxAlamofire" */;
+			productName = RxAlamofire;
+		};
+		A01CE32D24FA7C5400318F9D /* AlamofireImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A01CE32C24FA7C5400318F9D /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A01CE2DC24FA717300318F9D /* Project object */;
 }
