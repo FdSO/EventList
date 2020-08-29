@@ -12,6 +12,8 @@ import AlamofireImage
 import RxSwift
 import RxCocoa
 
+// exemplo de controller com RxSwift
+
 final class EventsTableViewController: UITableViewController {
     
     @IBOutlet private weak var errorView: UIView!
@@ -43,6 +45,8 @@ final class EventsTableViewController: UITableViewController {
     
     private let bag: DisposeBag = .init()
     
+    weak var coordinator: AppCoordinator?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -72,6 +76,19 @@ final class EventsTableViewController: UITableViewController {
                 }
             }
             .disposed(by: bag)
+        
+        tableView.rx.itemSelected
+            .subscribe(onNext: { (indexPath) in
+                
+                guard let model = try? self.viewModel.model.value()[indexPath.row] else {
+                    return
+                }
+
+                let image = self.tableView.cellForRow(at: indexPath)?.imageView?.image?.af.imageAspectScaled(toFit: .init(width: 120, height: 120)).withRenderingMode(.alwaysOriginal)
+
+                self.coordinator?.eventDetail(model: model, image: image)
+
+            }).disposed(by: bag)
     }
 }
 

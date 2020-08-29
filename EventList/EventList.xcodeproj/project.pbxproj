@@ -26,6 +26,8 @@
 		A01CE33624FA862700318F9D /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CE33524FA862700318F9D /* AppCoordinator.swift */; };
 		A01CE33824FA883700318F9D /* EventsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CE33724FA883700318F9D /* EventsViewModel.swift */; };
 		A02D2D4A24FA9862002F63C1 /* AppProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A02D2D4924FA9862002F63C1 /* AppProperties.swift */; };
+		A0AA584724FAA3A30036D747 /* EventDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA584624FAA3A30036D747 /* EventDetailViewModel.swift */; };
+		A0AA584924FAA8AC0036D747 /* TextViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA584824FAA8AC0036D747 /* TextViewTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		A01CE33524FA862700318F9D /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		A01CE33724FA883700318F9D /* EventsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewModel.swift; sourceTree = "<group>"; };
 		A02D2D4924FA9862002F63C1 /* AppProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppProperties.swift; sourceTree = "<group>"; };
+		A0AA584624FAA3A30036D747 /* EventDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewModel.swift; sourceTree = "<group>"; };
+		A0AA584824FAA8AC0036D747 /* TextViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,8 +197,10 @@
 		A01CE31D24FA73D200318F9D /* EventDetail */ = {
 			isa = PBXGroup;
 			children = (
+				A0AA584624FAA3A30036D747 /* EventDetailViewModel.swift */,
 				A01CE32424FA74C400318F9D /* EventDetail.storyboard */,
 				A01CE32624FA74FA00318F9D /* EventDetailTableViewController.swift */,
+				A0AA584824FAA8AC0036D747 /* TextViewTableViewCell.swift */,
 			);
 			path = EventDetail;
 			sourceTree = "<group>";
@@ -340,8 +346,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0AA584924FAA8AC0036D747 /* TextViewTableViewCell.swift in Sources */,
 				A02D2D4A24FA9862002F63C1 /* AppProperties.swift in Sources */,
 				A01CE33424FA85BA00318F9D /* Coordinator.swift in Sources */,
+				A0AA584724FAA3A30036D747 /* EventDetailViewModel.swift in Sources */,
 				A01CE32724FA74FA00318F9D /* EventDetailTableViewController.swift in Sources */,
 				A01CE2E824FA717300318F9D /* AppDelegate.swift in Sources */,
 				A01CE33224FA7F4800318F9D /* InterestedModel.swift in Sources */,

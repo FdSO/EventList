@@ -27,8 +27,37 @@ final class AppCoordinator: Coordinator {
             return
         }
         
+        viewController.coordinator = self
+        
         viewController.navigationItem.backBarButtonItem = .init()
         viewController.navigationItem.title = "Eventos"
+        
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func eventDetail(model: EventModel, image: UIImage?) {
+        
+        var controller: EventDetailTableViewController?
+
+        // Exemplo de Injeção de Dependência com Storyboard (Trocar ViewModel para Constante)
+        if #available(iOS 13.0, *) {
+            
+            controller = UIStoryboard(name: "EventDetail", bundle: nil).instantiateInitialViewController { coder in
+                return EventDetailTableViewController(coder: coder, model: model)
+            }
+            
+        } else {
+            
+            controller = UIStoryboard(name: "EventDetail", bundle: nil).instantiateInitialViewController() as? EventDetailTableViewController
+            
+            controller?.viewModel = .init(model: model)
+        }
+        
+        guard let viewController = controller else {
+            return
+        }
+        
+        viewController.image = image
         
         navigationController.pushViewController(viewController, animated: true)
     }

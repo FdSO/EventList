@@ -8,83 +8,169 @@
 
 import UIKit
 
-class EventDetailTableViewController: UITableViewController {
+// exemplo de controller sem RxSwift
 
+final class EventDetailTableViewController: UITableViewController {
+    
+    @IBOutlet private weak var titleView: UIImageView!
+    
+    var image: UIImage?
+    
+    // Limitação de Injeção de Dependência com Storyboard <iOS13 variável opcional precisa ser preenchida após inicialização da viewController
+    var viewModel: EventDetailViewModel?
+    
+    
+    // Injeção de Dependência com Storyboard iOS13+
+    
+//    let viewModel: EventDetailViewModel
+//
+    init?(coder: NSCoder, model: EventModel) {
+        viewModel = .init(model: model)
+        super.init(coder: coder)
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    
+    // Injeção de Dependência com ViewCode
+
+//
+//    init(style: UITableView.Style, model: EventModel) {
+//        viewModel = .init(model: model)
+//        super.init(style: style)
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        super.init(coder: coder)
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        titleView.image = image?.af.imageRoundedIntoCircle()
+        
+        navigationItem.titleView = titleView
     }
-
-    // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 3
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        switch section {
+            
+        case 0: return 3
+            
+        case 1: return viewModel?.model.peoples?.count ?? .zero
+            
+        case 2: return viewModel?.model.coupons?.count ?? .zero
+            
+        default: return .zero
+        }
     }
-
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        
+        switch indexPath.section {
+        case 0:
+            
+            switch indexPath.row {
+                
+            case 0:
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SECTION0_CELL0", for: indexPath)
+                
+                cell.textLabel?.text = "Evento"
+                
+                cell.detailTextLabel?.text = viewModel?.model.title?.capitalized
+                cell.detailTextLabel?.numberOfLines = 0
+                
+                return cell
+                
+            case 1:
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SECTION0_CELL0", for: indexPath)
+                
+                cell.accessoryType = .none
+                
+                cell.textLabel?.text = "Preço"
+                
+                cell.detailTextLabel?.text = viewModel?.model.price?.asCurrency(locale: .init(identifier: "PT-BR"))
+                cell.detailTextLabel?.numberOfLines = 1
+                
+                return cell
+                
+            case 2:
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "SECTION0_CELL1", for: indexPath) as? TextViewTableViewCell else {
+                    return .init()
+                }
+                
+                cell.textView.text = viewModel?.model.desc
+                
+                return cell
+                
+            default:
+                return .init()
+            }
+            
+        case 1:
+            
+            guard let people = viewModel?.model.peoples?[indexPath.row] else {
+                return .init()
+            }
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SECTION1_CELL0", for: indexPath)
+            
+            cell.imageView?.image = people.picture?.uppercased().asImage(withAttributes: [NSAttributedString.Key.foregroundColor: UIColor.red])
+            
+            cell.textLabel?.text = people.name?.capitalized
+            
+            return cell
+            
+        case 2:
+        
+            guard let coupon = viewModel?.model.coupons?[indexPath.row] else {
+                return .init()
+            }
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SECTION2_CELL0", for: indexPath)
+            
+            cell.textLabel?.text = nil
+            
+            cell.detailTextLabel?.text = "\(coupon.discount ?? 0)%"
+            
+            return cell
 
-        // Configure the cell...
-
-        return cell
+        default: return .init()
+        }
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        switch section {
+            
+        case 0: return "Informações"
+            
+        case 1: return "Pessoas"
+            
+        case 2: return "Cupons de Desconto"
+            
+        default: return nil
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        
+        switch section {
+            
+        case 1: return "Quantidade de Pessoas: \(viewModel?.model.peoples?.count ?? .zero)"
+        
+        case 2: return "Quantidade de Cupons: \(viewModel?.model.coupons?.count ?? .zero)"
+            
+        default: return nil
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
