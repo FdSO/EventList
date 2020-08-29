@@ -12,13 +12,34 @@
             <objects>
                 <tableViewController id="ZBH-75-gGt" customClass="EventDetailTableViewController" customModule="EventList" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="insetGrouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Jgk-KU-cjv">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="850"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                         <mapView key="tableHeaderView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="satellite" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" showsBuildings="NO" showsCompass="NO" showsPointsOfInterest="NO" id="Ysg-zI-dQj">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </mapView>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="jqn-R4-EX7">
+                            <rect key="frame" x="0.0" y="643" width="320" height="100"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o63-JS-kgE">
+                                    <rect key="frame" x="129" y="25" width="62" height="50"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="Opo-Uu-60U"/>
+                                    </constraints>
+                                    <state key="normal" title="Check-in"/>
+                                    <connections>
+                                        <action selector="checkinWasTapped" destination="ZBH-75-gGt" eventType="touchUpInside" id="JUR-b6-yV3"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="o63-JS-kgE" firstAttribute="centerX" secondItem="jqn-R4-EX7" secondAttribute="centerX" id="Gql-sw-gw2"/>
+                                <constraint firstItem="o63-JS-kgE" firstAttribute="centerY" secondItem="jqn-R4-EX7" secondAttribute="centerY" id="mmV-YW-T2C"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SECTION0_CELL0" textLabel="3vI-Ht-8kZ" detailTextLabel="p7A-uL-PmV" style="IBUITableViewCellStyleValue2" id="CXi-7M-GNT">
                                 <rect key="frame" x="16" y="205.5" width="288" height="43.5"/>
@@ -119,8 +140,9 @@
                             <outlet property="delegate" destination="ZBH-75-gGt" id="g8d-k6-Gs4"/>
                         </connections>
                     </tableView>
-                    <size key="freeformSize" width="320" height="600"/>
+                    <size key="freeformSize" width="320" height="850"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="GwY-hh-Mrr">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <attributedString key="attributedTitle"/>
                         <connections>

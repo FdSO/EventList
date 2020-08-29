@@ -36,6 +36,11 @@ import UIKit
 
 extension String {
     
+    func isValidEmail() -> Bool {
+            
+        return NSPredicate(format: "SELF MATCHES %@", "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}").evaluate(with: self)
+    }
+    
     func asImage(withAttributes attributes: [NSAttributedString.Key: Any]? = nil, size: CGSize? = nil) -> UIImage? {
         
         let size = size ?? (self as NSString).size(withAttributes: attributes)

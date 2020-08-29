@@ -44,6 +44,19 @@ final class EventDetailTableViewController: UITableViewController {
         })
     }
     
+    @IBAction private func checkinWasTapped() {
+        
+        presentAlertForm(title: "Check-in", message: "Informe os dados do Interessado.", placeholderFirst: "Nome", placeholderSecond: "Email", image: image, eventId: viewModel?.model.id) { result in
+            
+            if let people = result {
+                self.viewModel?.postChekin(parameter: people) { (isSuccess) in
+                    
+                    self.presentAlert(title: nil, message: isSuccess ? "Check-in com Sucesso!" : "No foi possivel faze o Check-in", preferredStyle: .alert, completion: nil)
+                }
+            }
+        }
+    }
+    
     var image: UIImage?
     
     // Limitação de Injeção de Dependência com Storyboard <iOS13 variável opcional precisa ser preenchida após inicialização da viewController
@@ -207,7 +220,7 @@ final class EventDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         
         if indexPath == .init(row: 0, section: 0) {
-            presentActionSheet(title: "Data do Evento", message: viewModel?.model.date?.asString(timeStyle: .short, dateStyle: .full, locale: AppProperties.locale) ?? "A definir")
+            presentAlert(title: "Data do Evento", message: viewModel?.model.date?.asString(timeStyle: .short, dateStyle: .full, locale: AppProperties.locale) ?? "A definir", preferredStyle: .actionSheet)
         }
     }
 }
@@ -223,15 +236,94 @@ extension EventDetailTableViewController {
         navigationItem.titleView = titleView
     }
     
-    private func presentActionSheet(title: String?, message: String?, completion: (() -> Void)? = nil) {
+    // validação de campos interno de um alertController - habilita ou não o botão de confirmar
+    @objc private func alertControllerFormTextEditing(sender: UITextField) {
+        var responder: UIResponder? = sender
         
-        let alertController: UIAlertController = .init(title: title, message: message, preferredStyle: .actionSheet)
+        while !(responder is UIAlertController) {
+            responder = responder?.next
+        }
+        
+        let alertController = responder as? UIAlertController
+        
+        if (alertController?.actions.count ?? 0) > 1, (alertController?.textFields?.count ?? 0) > 1 {
+            
+            let hasEmail = ((alertController?.textFields?[1])?.text ?? .init()).isValidEmail()
+            
+            let hasEmpty = (alertController?.textFields?.allSatisfy { !($0.text ?? .init()).isEmpty }) ?? false
+            
+            alertController?.actions[1].isEnabled = hasEmpty && hasEmail
+        }
+    }
+    
+    private func presentAlert(title: String?, message: String?, preferredStyle: UIAlertController.Style, completion: (() -> Void)? = nil) {
+        
+        let alertController: UIAlertController = .init(title: title, message: message, preferredStyle: preferredStyle)
         
         let okAction: UIAlertAction = .init(title: "OK", style: .default) { (_) in
             completion?()
         }
         
         alertController.addAction(okAction)
+        
+        present(alertController, animated: true)
+    }
+    
+    // formulário utilizando API privada Apple
+    private func presentAlertForm(title: String?, message: String?, placeholderFirst: String?, placeholderSecond: String?, image: UIImage?, eventId: String?, completion: @escaping (InterestedModel?) -> Void) {
+        
+        let alertController: UIAlertController = .init(title: title, message: message, preferredStyle: .alert)
+        
+        alertController.addTextField { (textField) in
+            textField.placeholder = placeholderFirst
+            textField.addTarget(self, action: #selector(self.alertControllerFormTextEditing(sender:)), for: .editingChanged)
+        }
+        
+        alertController.addTextField { (textField) in
+            textField.placeholder = placeholderSecond
+            textField.addTarget(self, action: #selector(self.alertControllerFormTextEditing(sender:)), for: .editingChanged)
+        }
+        
+        let okAction: UIAlertAction = .init(title: "Confirmar", style: .default) { (action) in
+            
+            guard let eventId = eventId else {
+                return
+            }
+            
+            guard let name = alertController.textFields?[0].text, !name.isEmpty else {
+                return
+            }
+
+            guard let email = alertController.textFields?[1].text, email.isValidEmail() else {
+                return
+            }
+
+            let people = InterestedModel(eventId: eventId, name: name, email: email)
+            
+            completion(people)
+        }
+        
+        okAction.isEnabled = false
+        
+        let cancelAction: UIAlertAction = .init(title: "Cancelar", style: .default) { (_) in
+            completion(nil)
+        }
+        
+        let imageAction: UIAlertAction = .init()
+        
+        let alertViewWidth: CGFloat = alertController.view.subviews.first?.constraints.first(where: { $0.firstAttribute == .width && $0.constant > 0 })?.constant ?? 0
+        
+        let alertInternalPadding: CGFloat = alertViewWidth != 0 ? 25 : 0
+        
+        let imageWidth: CGFloat = (image?.size.width ?? 0) + alertInternalPadding
+        
+        let inset = abs(alertViewWidth - imageWidth) / 2
+        imageAction.setValue(image?.withAlignmentRectInsets(.init(top: 0, left: -inset, bottom: 0, right: 0)), forKey: "image")
+        
+        alertController.addAction(imageAction)
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        alertController.preferredAction = okAction
         
         present(alertController, animated: true)
     }
