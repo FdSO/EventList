@@ -23,13 +23,45 @@ class EventListUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    // exemplo de teste para salvar um evento na galeria (caso tenha mudança na UI, precisa ser revisto)
+    func testShareEvent() throws {
+        
         let app = XCUIApplication()
         app.launch()
-
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+//        print(app.debugDescription)
+        
+        // índice para célula
+        let cell = app.tables.cells.element(boundBy: .random(in: 0...2))
+        
+        // verifica se a célula existe e se é clickavel - inicialização lenta (lazy)
+        if cell.isHittable {
+            
+            cell.tap()
+            
+            app.buttons.element(boundBy: 3).tap()
+            
+            app.buttons.element(boundBy: 4).tap()
+            
+            app.tables.buttons.element(boundBy: 0).tap()
+            
+            app.navigationBars.buttons.element(boundBy: 1).tap()
+            
+            app.collectionViews.cells.element(boundBy: 1).tap()
+            
+            addUIInterruptionMonitor(withDescription: "Share") { (alert) -> Bool in
+                let alertButton = alert.buttons.element(boundBy: 1)
+                
+                if alertButton.exists {
+                    alertButton.tap()
+                    return true
+                }
+                
+                return false
+            }
+            
+            app.navigationBars.buttons.element(boundBy: 0).tap()
+        }
     }
 
     func testLaunchPerformance() throws {

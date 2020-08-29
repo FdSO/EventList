@@ -262,7 +262,6 @@ final class EventDetailTableViewController: UITableViewController {
 extension EventDetailTableViewController {
     
     private func initState() {
-        refreshControl?.beginRefreshing()
         refreshControl?.sendActions(for: .valueChanged)
         
         titleView.image = image?.af.imageRoundedIntoCircle()
