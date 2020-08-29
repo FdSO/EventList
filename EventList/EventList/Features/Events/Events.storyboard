@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -62,10 +63,49 @@
                             <action selector="refreshControllWasTapped" destination="f4G-Xl-Mwn" eventType="valueChanged" id="yOf-Bj-lE1"/>
                         </connections>
                     </refreshControl>
+                    <connections>
+                        <outlet property="errorLabel" destination="Smc-eg-SES" id="aCf-4U-n6T"/>
+                        <outlet property="errorView" destination="O2Q-cR-5lx" id="S7E-Kd-pLR"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8BI-bu-nZO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="O2Q-cR-5lx">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="200"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GJW-SR-5zf">
+                            <rect key="frame" x="20" y="45" width="200" height="110.5"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="icons8-unavailable" translatesAutoresizingMaskIntoConstraints="NO" id="UM2-4F-Bbc">
+                                    <rect key="frame" x="60" y="0.0" width="80" height="80"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="80" id="ezH-60-mQ0"/>
+                                        <constraint firstAttribute="width" constant="80" id="hoT-6x-k7m"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Smc-eg-SES">
+                                    <rect key="frame" x="77" y="90" width="46.5" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
+                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstItem="uSd-7H-vbg" firstAttribute="trailing" secondItem="GJW-SR-5zf" secondAttribute="trailing" constant="20" id="3D4-C8-2FF"/>
+                        <constraint firstItem="GJW-SR-5zf" firstAttribute="centerY" secondItem="O2Q-cR-5lx" secondAttribute="centerY" id="I2a-dd-KvS"/>
+                        <constraint firstItem="GJW-SR-5zf" firstAttribute="centerX" secondItem="O2Q-cR-5lx" secondAttribute="centerX" id="MbX-eR-FRf"/>
+                        <constraint firstItem="GJW-SR-5zf" firstAttribute="leading" secondItem="uSd-7H-vbg" secondAttribute="leading" constant="20" id="zPT-xb-2IJ"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="uSd-7H-vbg"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="1121.25" y="155"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icons8-unavailable" width="96" height="96"/>
+    </resources>
 </document>

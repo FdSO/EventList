@@ -13,12 +13,29 @@ import RxSwift
 import RxCocoa
 
 final class EventsTableViewController: UITableViewController {
-
+    
+    @IBOutlet private weak var errorView: UIView!
+    @IBOutlet private weak var errorLabel: UILabel!
+    
     @IBAction private func refreshControllWasTapped() {
+        
+        tableView.backgroundView = nil
 
         viewModel.getEvents { isSuccess in
             
             self.refreshControl?.endRefreshing()
+            
+            if isSuccess {
+                guard let model = try? self.viewModel.model.value(), !model.isEmpty else {
+                    return
+                }
+                
+                self.tableView.backgroundView = self.errorView
+                self.errorLabel.text = "Conteúdo indisponível"
+            } else {
+                self.tableView.backgroundView = self.errorView
+                self.errorLabel.text = "Internet indisponível"
+            }
         }
     }
     
@@ -37,6 +54,8 @@ final class EventsTableViewController: UITableViewController {
                 cell.textLabel?.text = model.title
 
                 cell.detailTextLabel?.text = model.price?.asCurrency(locale: AppProperties.locale) ?? "-"
+                
+                cell.imageView?.image = #imageLiteral(resourceName: "icons8-no_image").af.imageAspectScaled(toFill: .init(width: 80, height: 80)).af.imageRounded(withCornerRadius: 20, divideRadiusByImageScale: true)
 
                 if let url = model.imageUrl {
 
