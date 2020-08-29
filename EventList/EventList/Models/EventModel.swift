@@ -56,7 +56,13 @@ struct EventModel: Decodable {
         id = try? values.decode(String.self, forKey: .id)
         latitude = try values.decodeIfPresent(CLLocationDegrees.self, forKey: .latitude) ?? .zero
         longitude = try values.decodeIfPresent(CLLocationDegrees.self, forKey: .longitude) ?? .zero
-        date = try? values.decode(Date.self, forKey: .date)
+        
+        if let value = try? values.decode(TimeInterval.self, forKey: .date) {
+            date = .init(timeIntervalSince1970: value / 1000)
+        } else {
+            date = try? values.decode(Date.self, forKey: .date)
+        }
+        
         desc = try? values.decode(String.self, forKey: .desc)
         imageUrl = try? values.decode(URL.self, forKey: .imageUrl)
         price = try? values.decode(Decimal.self, forKey: .price)

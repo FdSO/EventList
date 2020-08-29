@@ -45,3 +45,17 @@ extension String {
         }
     }
 }
+
+extension Date {
+    
+    func asString(timeStyle: DateFormatter.Style = .full, dateStyle: DateFormatter.Style = .full, locale: Locale = .current) -> String {
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.timeStyle = timeStyle
+        dateFormatter.dateStyle = dateStyle
+        dateFormatter.locale = locale
+        
+        return dateFormatter.string(from: self)
+    }
+}

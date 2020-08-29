@@ -82,6 +82,8 @@ final class EventDetailTableViewController: UITableViewController {
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SECTION0_CELL0", for: indexPath)
                 
+                cell.accessoryType = .detailButton
+                
                 cell.textLabel?.text = "Evento"
                 
                 cell.detailTextLabel?.text = viewModel?.model.title?.capitalized
@@ -97,7 +99,7 @@ final class EventDetailTableViewController: UITableViewController {
                 
                 cell.textLabel?.text = "Preço"
                 
-                cell.detailTextLabel?.text = viewModel?.model.price?.asCurrency(locale: .init(identifier: "PT-BR"))
+                cell.detailTextLabel?.text = viewModel?.model.price?.asCurrency(locale: AppProperties.locale)
                 cell.detailTextLabel?.numberOfLines = 1
                 
                 return cell
@@ -172,5 +174,28 @@ final class EventDetailTableViewController: UITableViewController {
             
         default: return nil
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        
+        if indexPath == .init(row: 0, section: 0) {
+            presentActionSheet(title: "Data do Evento", message: viewModel?.model.date?.asString(timeStyle: .short, dateStyle: .full, locale: AppProperties.locale) ?? "A definir")
+        }
+    }
+}
+
+extension EventDetailTableViewController {
+    
+    private func presentActionSheet(title: String?, message: String?, completion: (() -> Void)? = nil) {
+        
+        let alertController: UIAlertController = .init(title: title, message: message, preferredStyle: .actionSheet)
+        
+        let okAction: UIAlertAction = .init(title: "OK", style: .default) { (_) in
+            completion?()
+        }
+        
+        alertController.addAction(okAction)
+        
+        present(alertController, animated: true)
     }
 }
